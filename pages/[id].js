@@ -5,7 +5,7 @@ import Head from "next/head";
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function Place({ places }) {
+export default function Place({ places, setIdToEdit, setIsEditMode }) {
   const router = useRouter();
   const { id } = router.query;
   const { push } = useRouter();
@@ -37,7 +37,7 @@ export default function Place({ places }) {
   useEffect(() => {
     console.log("useEffect");
     getPlace();
-  }, []);
+  }, [id]);
 
   async function handleDeletePlace(id) {
     const response = await fetch(`/api/places/${id}`, { method: "DELETE" });
@@ -51,16 +51,10 @@ export default function Place({ places }) {
   }
 
   async function handleEditPlace(id) {
-    console.log("id", id);
-    idToEdit = id;
-    const response = await fetch(`/api/places/${id}`, { method: "PUT" });
-    if (response.ok) {
-      console.log("edit pressed + response OK", id);
-      await response.json();
-      push("../create/");
-    } else {
-      console.error(`Error: ${response.status}`);
-    }
+    console.log("Clicked Edit for ID", id);
+    setIdToEdit(id);
+    setIsEditMode(true);
+    push("../create/");
   }
 
   console.log("place before html return", place);

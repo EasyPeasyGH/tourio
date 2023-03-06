@@ -2,8 +2,16 @@ import Head from "next/head";
 
 import PlacesForm from "@/components/PlacesForm";
 import Link from "next/link";
+import { useState } from "react";
+import { useEffect } from "react";
 
-export default function Create() {
+export default function Create({
+  places,
+  idToEdit,
+  isEditMode,
+  setIsEditMode,
+}) {
+  console.log("idToEdit from create", idToEdit);
   return (
     <>
       <Head>
@@ -16,7 +24,11 @@ export default function Create() {
         <h2>Tourio - Create</h2>
       </header>
       <main>
-        <PlacesForm />
+        <PlacesForm
+          places={places}
+          idToEdit={idToEdit}
+          isEditMode={isEditMode}
+        />
         <Link className="appButton--back" href="/">
           Back
         </Link>

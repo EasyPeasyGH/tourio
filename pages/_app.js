@@ -4,9 +4,10 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 const url = "api/places";
-let idToEdit = "";
 
 export default function App({ Component, pageProps }) {
+  const [idToEdit, setIdToEdit] = useState("id");
+  const [isEditMode, setIsEditMode] = useState(false);
   const [places, setPlaces] = useState([]);
 
   async function getPlaces() {
@@ -25,8 +26,17 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     console.log("useEffect");
     getPlaces();
-  }, []);
+  }, [idToEdit]);
 
   console.log("place before html return", places);
-  return <Component {...pageProps} places={places} />;
+  return (
+    <Component
+      {...pageProps}
+      places={places}
+      setIdToEdit={setIdToEdit}
+      setIsEditMode={setIsEditMode}
+      idToEdit={idToEdit}
+      isEditMode={isEditMode}
+    />
+  );
 }

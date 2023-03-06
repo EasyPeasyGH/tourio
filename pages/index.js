@@ -2,13 +2,12 @@ import Head from "next/head";
 import { Inter } from "next/font/google";
 
 import PlacesList from "@/components/PlacesList";
-import { useState } from "react";
-import { useEffect } from "react";
+
 import Link from "next/link";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export default function Home({ places }) {
+export default function Home({ places, isEditMode }) {
   return (
     <>
       <Head>
@@ -22,8 +21,12 @@ export default function Home({ places }) {
       </header>
       <main>
         <PlacesList places={places} />
-        <Link className="appButton--fixed" href="/create">
-          Create
+        <Link
+          className="appButton--fixed"
+          href="/create"
+          onClick={(isEditMode = false)}
+        >
+          Add +
         </Link>
       </main>
     </>
